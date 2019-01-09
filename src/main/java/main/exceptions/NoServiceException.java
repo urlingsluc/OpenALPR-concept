@@ -1,4 +1,4 @@
-package main.exceptions.advices;
+package main.exceptions;
 
 public class NoServiceException extends Exception {
 }

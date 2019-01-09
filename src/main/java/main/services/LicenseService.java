@@ -2,7 +2,8 @@ package main.services;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import main.exceptions.advices.NoServiceException;
+import main.exceptions.CannotDetectException;
+import main.exceptions.NoServiceException;
 import main.model.License;
 import org.springframework.stereotype.Service;
 
@@ -64,7 +65,7 @@ public class LicenseService {
         }
     }
 
-    public License getPlate(byte[] fileBytes) throws NoServiceException {
+    public License getPlate(byte[] fileBytes) throws NoServiceException, CannotDetectException {
         String jsonString = sendRequest(fileBytes);
         try {
             JsonObject jsonObject = new JsonParser().parse(jsonString).getAsJsonObject();
@@ -73,6 +74,9 @@ public class LicenseService {
             String plate = result.get("plate").getAsString();
             float confidence = result.get("confidence").getAsFloat();
             License license = new License(plate, confidence);
+            if (confidence < 60f){
+                throw new CannotDetectException();
+            }
             return license;
         } catch (Exception e){
             throw new NoServiceException();

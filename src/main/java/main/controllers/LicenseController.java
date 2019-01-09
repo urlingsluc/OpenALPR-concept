@@ -1,6 +1,7 @@
 package main.controllers;
 
-import main.exceptions.advices.NoServiceException;
+import main.exceptions.CannotDetectException;
+import main.exceptions.NoServiceException;
 import main.model.License;
 import main.services.LicenseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class LicenseController {
 
     @PostMapping(value = "getPlate", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
-    License getPlate(@RequestParam("file") MultipartFile file) throws IOException, NoServiceException {
+    License getPlate(@RequestParam("file") MultipartFile file) throws IOException, NoServiceException, CannotDetectException {
 
         byte[] fileBytes = file.getBytes();
         return service.getPlate(fileBytes);
