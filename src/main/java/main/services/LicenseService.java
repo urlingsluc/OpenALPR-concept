@@ -48,8 +48,7 @@ public class LicenseService {
                 while ((inputLine = in.readLine()) != null)
                     json_content += inputLine;
                 in.close();
-
-                System.out.println(json_content);
+                
                 return json_content;
             }
             else
