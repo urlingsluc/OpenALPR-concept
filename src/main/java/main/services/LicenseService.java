@@ -25,7 +25,7 @@ public class LicenseService {
             byte[] encoded = Base64.getEncoder().encode(inputBytes);
 
             // Setup the HTTPS connection to api.openalpr.com
-            URL url = new URL("https://api.openalpr.com/v2/recognize_bytes?recognize_vehicle=1&country=eu&secret_key=" + KEY);
+                URL url = new URL("https://api.openalpr.com/v2/recognize_bytes?recognize_vehicle=1&country=eu&secret_key=" + KEY);
             URLConnection con = url.openConnection();
             HttpURLConnection http = (HttpURLConnection) con;
             http.setRequestMethod("POST"); // PUT is another valid option
@@ -48,7 +48,7 @@ public class LicenseService {
                 while ((inputLine = in.readLine()) != null)
                     json_content += inputLine;
                 in.close();
-                
+
                 return json_content;
             }
             else
@@ -77,7 +77,10 @@ public class LicenseService {
                 throw new CannotDetectException();
             }
             return license;
-        } catch (Exception e){
+        } catch (IndexOutOfBoundsException e) {
+            throw new CannotDetectException();
+        }
+        catch (Exception e){
             throw new NoServiceException();
         }
     }
