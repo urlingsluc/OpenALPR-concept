@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.math.BigDecimal;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
@@ -72,7 +73,7 @@ public class LicenseService {
 
             String plate = result.get("plate").getAsString();
             float confidence = result.get("confidence").getAsFloat();
-            License license = new License(plate, confidence);
+            License license = new License(plate, round(confidence, 2));
             if (confidence < 60f){
                 throw new CannotDetectException();
             }
@@ -81,7 +82,12 @@ public class LicenseService {
             throw new CannotDetectException();
         }
         catch (Exception e){
-            throw new NoServiceException();
+            throw new NoServiceException);
         }
     }
+
+    public static float round(float d, int decimalPlace) {
+        return BigDecimal.valueOf(d).setScale(decimalPlace,BigDecimal.ROUND_HALF_UP).floatValue();
+    }
+
 }
