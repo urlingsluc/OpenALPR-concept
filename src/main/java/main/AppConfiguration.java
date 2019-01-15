@@ -19,7 +19,7 @@ public class AppConfiguration extends WebMvcConfigurerAdapter {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedMethods("POST").allowedOrigins("*");
+                .allowedMethods("*").allowedOrigins("*");
     }
 
     @Bean

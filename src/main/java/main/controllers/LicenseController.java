@@ -13,7 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 
 @Controller
-@RequestMapping(value = "api/license/")
+@RequestMapping(value = "alpr/license/")
 public class LicenseController {
 
     @Autowired
