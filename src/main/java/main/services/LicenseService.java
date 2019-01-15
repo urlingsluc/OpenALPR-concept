@@ -82,7 +82,7 @@ public class LicenseService {
             throw new CannotDetectException();
         }
         catch (Exception e){
-            throw new NoServiceException);
+            throw new NoServiceException();
         }
     }
 
